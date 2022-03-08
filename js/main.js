@@ -4,6 +4,8 @@
     Da lì parte un timer di 30 secondi.
     Dopo 30 secondi l'utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt().
     Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
+    BONUS
+    L'utente potrebbe inserire tutti i numeri esatti ma nell'ordine sbagliato. Implementare un meccanismo che prevede tale errore.
  */
 
 /**
@@ -51,19 +53,30 @@ function getRandomInt(max) {
  * @param {*} randomNumsArray Array di numeri random da confrontare con quelli inseriti dall'utente
  */
 function numberComparsion(randomNumsArray){
-    // Tengo a memoria quanti numeri inseriti dall'utente sono uguali a quelli generati random
-    let count = 0;
+    // Comparando i numeri mi fermo alla prima iterazione
+    let trovato = false;
+    // Memorizzo i numeri inseriti dall'utente
     const userNumberArray = [];
+    // Memorizzo i numeri inseriti dall'utente, che comparati con quelli random del PC risultano uguali
+    const numbersCompared = [];
     let outputText = "";
 
     for (let i = 0; i < randomNumsArray.length; i++){
-        let userNumber = parseInt(prompt(`Inserisci il ${i + 1}° da confontare`));
-        // Se il numero inserito dall'utente è uguale a quello generato random
-        if (userNumber === randomNumsArray[i]){
-            userNumberArray.push(userNumber);
-            count++;
-        }
+        userNumberArray.push( parseInt(prompt(`Inserisci il ${i + 1}° da confontare`)) );
     }
-    outputText = `L'utente ha inserito correttamente ${count} numeri, e sono: ${userNumberArray}`;
+
+    for (let i = 0; i < userNumberArray.length; i++){
+        for (let j = 0; j < randomNumsArray.length; j++){
+            // Se il numero inserito dall'utente è uguale a quello generato random
+            if ( (userNumberArray[i] === randomNumsArray[j]) && !(trovato) ){
+                numbersCompared.push(userNumberArray[i]);
+                // Ho trovato il numero, posso uscire dal ciclo più interno
+                trovato = true;
+            }
+        }
+        // Risetto 'trovato = false', altrimenti non entrerà più nel ciclo più interno
+        trovato = false;
+    }
+    outputText = `L'utente ha inserito correttamente ${numbersCompared.length} numeri, e sono: ${numbersCompared}`;
     console.log(outputText);
 }
