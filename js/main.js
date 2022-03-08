@@ -19,7 +19,9 @@ const randomNums = [];
 for (let i = 0; i < 5; i++){
     randomNums.push(getRandomInt(50));
     console.log(randomNums[i]);
+    document.querySelector('#output').innerHTML += `${randomNums[i]} `;
 }
+
 
 
 
