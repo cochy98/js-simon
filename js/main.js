@@ -53,6 +53,7 @@ function getRandomInt(max) {
  * @param {*} randomNumsArray Array di numeri random da confrontare con quelli inseriti dall'utente
  */
 function numberComparsion(randomNumsArray){
+    document.querySelector('#output').innerHTML = "";
     // Comparando i numeri mi fermo alla prima iterazione
     let trovato = false;
     // Memorizzo i numeri inseriti dall'utente
@@ -79,4 +80,5 @@ function numberComparsion(randomNumsArray){
     }
     outputText = `L'utente ha inserito correttamente ${numbersCompared.length} numeri, e sono: ${numbersCompared}`;
     console.log(outputText);
+    document.querySelector('#output').innerHTML = outputText;
 }
